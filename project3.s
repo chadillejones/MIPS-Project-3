@@ -74,7 +74,8 @@ processString:   #subprogram A to accept all the string and make it substrings
 		li $v0, 4
 		la $a0, invalid #prints "NaN"
 		syscall
-		
+	
+	nextSubstring:
 		li $a0, ','
 		li $v0, 11 #prints ","
 		syscall	
@@ -115,6 +116,17 @@ processString:   #subprogram A to accept all the string and make it substrings
 		sub $s0, $s0, $t7
 		sw $s0, 8($sp) #adds the substring of the 4 letters to the stack
 		add $a1, $t7, $zero #changes variable $t7 to and argument
+		
+		jal convertSubstring #subprogram to convert to base 35
+		j nextSubstring
+		
+convertSubstring: 
+	sw $ra, 12($sp) #stores the return address in stack 
+	lw $s3, 8($sp) #gets the substring from stack
+	lb $t5, 0($s3) #gets the first byte from the substring
+	
+	blt $t4, $s4, print_invalid_input #breaks if ascii of character is < 48
+	bgt $t4, $s5, not_a_digit #breaks if ascii of character is > 57
 		
 		
 		

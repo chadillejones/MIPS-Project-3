@@ -34,13 +34,23 @@ processString:   #subprogram A to accept all the string and make it substrings
 	
 	loop: #loop to parse each substring
 		
-		lb $t5, 0($t2)	#loads one byte of the word
+		lb $t5, 0($t3)	#loads one byte of the word
 		beq $t5, $t4, lastSubstring #branches if the byte is equal to a newline
 		beq $t5, $t1, parseSubstring #branches if the byte is equal to a commma
 		addi $t6, $t6, 1 #increments the length of substring
+		addi $t3, $t3, 1 #increments the address of the word
+		j loop
+	
+	parseSubstring: #takes care of parsing the substring
+		sub $t3, $t3, $t6 #returns the word address to the first byte
+		lb $t7, 0($t3) #loads one byte of the word
 	
 	lw $ra, 0($sp) #loads the return address for processString
 	jr $ra #return to where was called
+	
+		
+	
+	
 	
 	
 	

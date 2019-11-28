@@ -15,9 +15,14 @@ main
 	li $a1, 1002 #specify the length og the input a person can enter
 	syscall
 	
+	lw $t0, user_input #loads the word in $t0
+	sub $sp, $sp, 4 #moves the pointer for stack
+	sw $t0, 4($sp) #adds the input string to the word
+	
 	jal processString #jumps to subprogram A
 	
 	
 prcoessString:   #subprogram A to accept all the string
 
 	jr $ra #return to where was called
+	

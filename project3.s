@@ -8,7 +8,7 @@ invalid: .asciiz "NaN" #creating the error message for incorrect input
 .text #Assembly language instruction
 .globl main
 
-main 
+main: 
 
 	li $v0, 8 #accepts user input
 	la $a0, user_input
@@ -28,7 +28,7 @@ processString:   #subprogram A to accept all the string and make it substrings
 	sw $ra, 0($sp) #stores the return address for the program
 	li $t1, 44 #loads a comma
 	lw $t2, 4($sp) #loads the user_input
-	la $t3, $t2 #loads the address of the input string 
+	la $t3, ($t2) #loads the address of the input string 
 	li $t4, 0x0A #loads a newline
 	li $t6, 0 #length of substring
 	li $t7, 0 #check if leading 
@@ -46,9 +46,16 @@ processString:   #subprogram A to accept all the string and make it substrings
 		sub $t3, $t3, $t6 #returns the word address to the first byte
 		lb $t7, 0($t3) #loads one byte of the word
 		beq $t7, $zero, leading_chars #branch if byte could be leading
+		
+		
+	leading_chars: #checks if it is a leading space/tab
+		li $t8, 32 #loads a space
+		li $t9, 9 #loads a tab
 	
-	lw $ra, 0($sp) #loads the return address for processString
-	jr $ra #return to where was called
+	
+	lastSubstring: #checks the final substring		
+		lw $ra, 0($sp) #loads the return address for processString
+		jr $ra #return to where was called
 	
 		
 	

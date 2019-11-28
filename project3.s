@@ -19,10 +19,17 @@ main
 	sub $sp, $sp, 4 #moves the pointer for stack
 	sw $t0, 4($sp) #adds the input string to the word
 	
+	
 	jal processString #jumps to subprogram A
 	
 	
-prcoessString:   #subprogram A to accept all the string
-
+prcoessString:   #subprogram A to accept all the string and make it substrings
+	
+	sw $ra, 0($sp) #stores the return address for the program
+	li $t1, 44 #loads a comma
+	lw $t2, 4($sp) #loads the user_input
+	
+	la $t3, $t2 #loads the address of the input string 
+	
 	jr $ra #return to where was called
 	

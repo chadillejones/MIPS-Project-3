@@ -38,6 +38,7 @@ processString:   #subprogram A to accept all the string and make it substrings
 	li $t8, 32 #loads a space
 	li $t9, 9 #loads a tab
 	li $s1, 4 #loads the max amount of characters
+	li $s2, 0 #loads a counter for the amount of characters in the substring
 	
 	loop: #loop to parse each substring
 		
@@ -53,8 +54,10 @@ processString:   #subprogram A to accept all the string and make it substrings
 		
 		
 	loopTwo: 
-	
+		
+		beq $t6, $s2, validSubstring #branches if all the substring is finished
 		lb $t5, 0($t3) #loads one byte of the word
+		addi $s2, $s2, 1 #increments the counter for numbers in substring
 		beq $t7, $zero, leading_chars #branch if byte could be leading
 		
 	parseStringHelper:
@@ -77,6 +80,7 @@ processString:   #subprogram A to accept all the string and make it substrings
 		
 		add $t3, $t3, $t6
 		addi $t3, $t3, 1 #moves the address of the user input after the first substring
+		add $t6, $zero, $zero
 		j loop
 		
 		
@@ -89,6 +93,8 @@ processString:   #subprogram A to accept all the string and make it substrings
 	skip_leading_tab_or_space: #increments char
 		addi $t3, $t3, 1
 		j loopTwo
+	
+	skip_trailing_tab_or_space:
 	
 	
 	lastSubstring: #checks the final substring		

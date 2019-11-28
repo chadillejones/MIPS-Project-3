@@ -95,16 +95,21 @@ processString:   #subprogram A to accept all the string and make it substrings
 		j loopTwo
 	
 	skip_trailing_tab_or_space: #checks if the rest of the substring tabs and spaces
-	addi $t3, $t3, 1 #move to the next byte
-	lb $t5, 0($t3)  #gets a character of the string
-	beq $t5, $t1, valid_input #branches if only trailing tabs are spaces are found before newline
-	bne $t4, $t2, not_a_space #branches if character is not a space
-	j skip_trailing_tab_or_space #returns to check next character for trailing tab or space
+		addi $t3, $t3, 1 #move to the next byte
+		lb $t5, 0($t3)  #gets a character of the string
+		beq $t5, $t1, valid_input #branches if only trailing tabs are spaces are found before newline
+		bne $t4, $t8, not_a_space #branches if character is not a space
+		j skip_trailing_tab_or_space #returns to check next character for trailing tab or space
 	
+	not_a_space:
+		bne $t4, $t9, invalid_substring #if character after space for trailing is not a tab or space then print invalid
+		j skip_trailing_tab_or_space #returns to check the next character for trailing tab or space
 	
 	lastSubstring: #checks the final substring		
 		lw $ra, 0($sp) #loads the return address for processString
 		jr $ra #return to where was called
+		
+	validSubstring:
 	
 		
 	

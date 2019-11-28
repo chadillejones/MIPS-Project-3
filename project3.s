@@ -15,3 +15,9 @@ main
 	li $a1, 1002 #specify the length og the input a person can enter
 	syscall
 	
+	jal processString #jumps to subprogram A
+	
+	
+prcoessString:   #subprogram A to accept all the string
+
+	jr $ra #return to where was called

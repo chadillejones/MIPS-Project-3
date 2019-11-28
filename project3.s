@@ -28,8 +28,10 @@ prcoessString:   #subprogram A to accept all the string and make it substrings
 	sw $ra, 0($sp) #stores the return address for the program
 	li $t1, 44 #loads a comma
 	lw $t2, 4($sp) #loads the user_input
-	
 	la $t3, $t2 #loads the address of the input string 
+	li $t4, 0x0A #loads a newline
+	
+	loop: #loop to parse each substring
 	
 	lw $ra, 0($sp) #loads the return address for processString
 	jr $ra #return to where was called

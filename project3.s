@@ -12,7 +12,7 @@ main
 
 	li $v0, 8 #accepts user input
 	la $a0, user_input
-	li $a1, 1002 #specify the length og the input a person can enter
+	li $a1, 1002 #specify the length of the input a person can enter
 	syscall
 	
 	lw $t0, user_input #loads the word in $t0
@@ -35,7 +35,9 @@ processString:   #subprogram A to accept all the string and make it substrings
 	loop: #loop to parse each substring
 		
 		lb $t5, 0($t2)	#loads one byte of the word
-		beq $t5, $t4
+		beq $t5, $t4, lastSubstring #branches if the byte is equal to a newline
+		beq $t5, $t1, parseSubstring #branches if the byte is equal to a commma
+		addi $t6, $t6, 1 #increments the length of substring
 	
 	lw $ra, 0($sp) #loads the return address for processString
 	jr $ra #return to where was called

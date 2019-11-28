@@ -65,6 +65,7 @@ processString:   #subprogram A to accept all the string and make it substrings
 		beq $t5, $t9, skip_trailing_tab_or_space
 		addi $t7, $t7, 1 #increments the amount of non-space or non-tab chars
 		sb $t5, 0($s0) #stores the char in a list
+		addi $s0, $s0, 1 #increments the word list
 		bgt $t7, $s1, invalid_substring #branches if amount of characters is more than 4
 		addi $t3, $t3, 1 #increments the address of the word
 		
@@ -111,7 +112,10 @@ processString:   #subprogram A to accept all the string and make it substrings
 		
 	validSubstring:
 		li $a0, 35 #initialized the base number
-		sw $t0, 8($sp) #adds the substring of the 4 letters to the stack
+		sub $s0, $s0, $t7
+		sw $s0, 8($sp) #adds the substring of the 4 letters to the stack
+		add $a1, $t7, $zero #changes variable $t7 to and argument
+		
 		
 		
 		

@@ -11,6 +11,8 @@ subString: .word 0, 0, 0, 0 #initialize a word list
 
 main: 
 
+	la $s0, subString #load the address of the list
+	
 	li $v0, 8 #accepts user input
 	la $a0, user_input
 	li $a1, 1002 #specify the length of the input a person can enter
@@ -51,7 +53,10 @@ processString:   #subprogram A to accept all the string and make it substrings
 	loopTwo: 
 		lb $t5, 0($t3) #loads one byte of the word
 		beq $t7, $zero, leading_chars #branch if byte could be leading
+		beq $t5, $t8, skip_trailing_tab_or_space
+		beq $t5, $t9, skip_trailing_tab_or_space
 		
+		sb $t5, 0($s0) #stores the char in a list
 		
 		
 	leading_chars: #checks if it is a leading space/tab

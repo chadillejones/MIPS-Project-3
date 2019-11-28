@@ -53,6 +53,7 @@ processString:   #subprogram A to accept all the string and make it substrings
 		
 		
 	loopTwo: 
+	
 		lb $t5, 0($t3) #loads one byte of the word
 		beq $t7, $zero, leading_chars #branch if byte could be leading
 		
@@ -71,9 +72,12 @@ processString:   #subprogram A to accept all the string and make it substrings
 		syscall
 		
 		li $a0, ','
-		li $v0, 11
+		li $v0, 11 #prints ","
 		syscall	
 		
+		add $t3, $t3, $t6
+		addi $t3, $t3, 1 #moves the address of the user input after the first substring
+		j loop
 		
 		
 	leading_chars: #checks if it is a leading space/tab

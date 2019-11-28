@@ -34,11 +34,8 @@ processString:   #subprogram A to accept all the string and make it substrings
 	la $t3, ($t2) #loads the address of the input string 
 	li $t4, 0x0A #loads a newline
 	li $t6, 0 #length of substring
-	li $t7, 0 #check if leading 
-	li $t8, 32 #loads a space
-	li $t9, 9 #loads a tab
-	li $s1, 4 #loads the max amount of characters
-	li $s2, 0 #loads a counter for the amount of characters in the substring
+	
+	
 	
 	loop: #loop to parse each substring
 		
@@ -51,7 +48,11 @@ processString:   #subprogram A to accept all the string and make it substrings
 	
 	parseSubstring: #takes care of parsing the substring
 		sub $t3, $t3, $t6 #returns the word address to the first byte
-		
+		li $t7, 0 #check if leading 
+		li $t8, 32 #loads a space
+		li $t9, 9 #loads a tab
+		li $s1, 4 #loads the max amount of characters
+		li $s2, 0 #loads a counter for the amount of characters in the substring
 		
 	loopTwo: 
 		
@@ -124,6 +125,13 @@ convertSubstring:
 	sw $ra, 12($sp) #stores the return address in stack 
 	lw $s3, 8($sp) #gets the substring from stack
 	lb $t5, 0($s3) #gets the first byte from the substring
+	
+	li $t7, 48 #lowest possible valid character ascii
+	li $t8, 57 #hightest possible non-letter digit ascii
+	li $t9, 65 #lowest possible capital letter ascii
+	li $s0, 89 #highest possible capital letter ascii # =Y since N = 35
+	li $s1, 97 #lowest possible common letter ascii 
+	li $s2, 121 #highest possible common letter ascii = y since N = 35
 	
 	blt $t4, $s4, print_invalid_input #breaks if ascii of character is < 48
 	bgt $t4, $s5, not_a_digit #breaks if ascii of character is > 57

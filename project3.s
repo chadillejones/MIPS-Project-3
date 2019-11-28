@@ -4,6 +4,7 @@
 .data #section to declare data
 user_input: .space 2000 # creating space for the user input
 invalid: .asciiz "NaN" #creating the error message for incorrect input
+subString: .word 0, 0, 0, 0 #initialize a word list
 
 .text #Assembly language instruction
 .globl main
@@ -32,6 +33,8 @@ processString:   #subprogram A to accept all the string and make it substrings
 	li $t4, 0x0A #loads a newline
 	li $t6, 0 #length of substring
 	li $t7, 0 #check if leading 
+	li $t8, 32 #loads a space
+	li $t9, 9 #loads a tab
 	
 	loop: #loop to parse each substring
 		
@@ -47,10 +50,15 @@ processString:   #subprogram A to accept all the string and make it substrings
 		lb $t7, 0($t3) #loads one byte of the word
 		beq $t7, $zero, leading_chars #branch if byte could be leading
 		
+	parseSubstringHelper: #if it is not a leading space or tab
+		
 		
 	leading_chars: #checks if it is a leading space/tab
-		li $t8, 32 #loads a space
-		li $t9, 9 #loads a tab
+		beq $t7, $t8, skip_leading_tab_or_space
+		beq $t7, $t9, skip_leading_tab_or_space
+		
+		
+		
 	
 	
 	lastSubstring: #checks the final substring		

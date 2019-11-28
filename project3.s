@@ -19,7 +19,7 @@ main:
 	syscall
 	
 	lw $t0, user_input #loads the word in $t0
-	sub $sp, $sp, 4 #moves the pointer for stack
+	sub $sp, $sp, 12 #moves the pointer for stack
 	sw $t0, 4($sp) #adds the input string to the word
 	
 	
@@ -110,6 +110,10 @@ processString:   #subprogram A to accept all the string and make it substrings
 		jr $ra #return to where was called
 		
 	validSubstring:
+		li $a0, 35 #initialized the base number
+		sw $t0, 8($sp) #adds the substring of the 4 letters to the stack
+		
+		
 	
 		
 	

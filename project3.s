@@ -60,12 +60,16 @@ processString:   #subprogram A to accept all the string and make it substrings
 		beq $t5, $t8, skip_trailing_tab_or_space
 		beq $t5, $t9, skip_trailing_tab_or_space
 		addi $t7, $t7, 1 #increments the amount of non-space or non-tab chars
-		bgt $t7, $s1, too_many_chars #branches if amount of characters is more than 4
+		bgt $t7, $s1, invalid_substring #branches if amount of characters is more than 4
 		sb $t5, 0($s0) #stores the char in a list
 		addi $t3, $t3, 1 #increments the address of the word
 		
 		
-	too_many_chars:
+	invalid_substring:
+		li $v0, 4
+		la $a0, invalid #prints "NaN"
+		syscall
+		
 			
 		
 		

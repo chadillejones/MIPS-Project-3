@@ -47,17 +47,21 @@ processString:   #subprogram A to accept all the string and make it substrings
 	
 	parseSubstring: #takes care of parsing the substring
 		sub $t3, $t3, $t6 #returns the word address to the first byte
-		lb $t7, 0($t3) #loads one byte of the word
+		
+	loopTwo: 
+		lb $t5, 0($t3) #loads one byte of the word
 		beq $t7, $zero, leading_chars #branch if byte could be leading
 		
 	parseSubstringHelper: #if it is not a leading space or tab
 		
 		
 	leading_chars: #checks if it is a leading space/tab
-		beq $t7, $t8, skip_leading_tab_or_space
-		beq $t7, $t9, skip_leading_tab_or_space
+		beq $t5, $t8, skip_leading_tab_or_space
+		beq $t5, $t9, skip_leading_tab_or_space
+		addi $t7, $t7, 1 #increments the amount of non-space or non-tab chars
+		j parseSubstringHelper
 		
-		
+	skip_leading_tab_or_space: #increments char
 		
 	
 	

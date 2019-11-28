@@ -37,7 +37,7 @@ processString:   #subprogram A to accept all the string and make it substrings
 	li $t7, 0 #check if leading 
 	li $t8, 32 #loads a space
 	li $t9, 9 #loads a tab
-	li $s1, 0 #length of non space or tab substring
+	li $s1, 4 #loads the max amount of characters
 	
 	loop: #loop to parse each substring
 		
@@ -55,20 +55,24 @@ processString:   #subprogram A to accept all the string and make it substrings
 	loopTwo: 
 		lb $t5, 0($t3) #loads one byte of the word
 		beq $t7, $zero, leading_chars #branch if byte could be leading
-		addi $t7, $t7, 1 #add one to the amount of non leading or trailing characters
+		
 	parseStringHelper:
 		beq $t5, $t8, skip_trailing_tab_or_space
 		beq $t5, $t9, skip_trailing_tab_or_space
-		
+		addi $t7, $t7, 1 #increments the amount of non-space or non-tab chars
+		bgt $t7, $s1, too_many_chars #branches if amount of characters is more than 4
 		sb $t5, 0($s0) #stores the char in a list
-		addi $t3, $t3, 1 
+		addi $t3, $t3, 1 #increments the address of the word
 		
+		
+	too_many_chars:
+			
 		
 		
 	leading_chars: #checks if it is a leading space/tab
 		beq $t5, $t8, skip_leading_tab_or_space
 		beq $t5, $t9, skip_leading_tab_or_space
-		addi $t7, $t7, 1 #increments the amount of non-space or non-tab chars
+		
 		j parseStringHelper
 		
 	skip_leading_tab_or_space: #increments char

@@ -70,7 +70,10 @@ processString:   #subprogram A to accept all the string and make it substrings
 		la $a0, invalid #prints "NaN"
 		syscall
 		
-			
+		li $a0, ','
+		li $v0, 11
+		syscall	
+		
 		
 		
 	leading_chars: #checks if it is a leading space/tab

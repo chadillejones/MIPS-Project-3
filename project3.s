@@ -31,5 +31,6 @@ prcoessString:   #subprogram A to accept all the string and make it substrings
 	
 	la $t3, $t2 #loads the address of the input string 
 	
+	lw $ra, 0($sp) #loads the return address for processString
 	jr $ra #return to where was called
 	

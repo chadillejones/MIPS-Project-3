@@ -144,8 +144,10 @@ convertSubstring:
 		
 		
 convertByte:
-
-	
+	li $t7, 1
+	li $t8, 2
+	li $t9, 3
+	li $s1, 4
 		
 	
 	

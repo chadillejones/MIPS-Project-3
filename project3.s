@@ -149,7 +149,7 @@ convertSubstring:
 		
 	
 	convertByteHelper:
-		lb $a0, ($t4) #loads byte in a0 to be passed as an argument
+		add $a0, $t5, $zero #loads byte in a0 to be passed as an argument
 		jal convertByte #subprogram to convert byte to base 35
 		add $s4, $s4, $v0 #adds the amount for that digit to the total
 		addi $s3, $s3, 1 #increments the address
@@ -168,6 +168,9 @@ convertSubstring:
 		j convertByteHelper
 		
 	not_a_capital_letter:
+		blt $t5, $s1, print_invalid_input #breaks if ascii of character is < 97
+		bgt $t5, $s2, print_invalid_input #breaks if ascii of character is > 121
+		addi $t5, $t5, -87 #makes the ascii for digit align with common letters
 		
 	
 	endSubstring:

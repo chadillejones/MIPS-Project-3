@@ -159,7 +159,7 @@ convertSubstring:
 		
 	print_invalid_input:
 		addi $v0, $zero, -1 #sets the value of v0 to negative 
-		j returnToNextSubstrin
+		j returnToNextSubstring
 			
 	not_a_digit:
 	

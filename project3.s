@@ -69,10 +69,15 @@ processString:   #subprogram A to accept all the string and make it substrings
 		addi $t7, $t7, 1 #increments the amount of non-space or non-tab chars
 		sb $t5, 0($s0) #stores the char in a list
 		addi $s0, $s0, 1 #increments the word list
-		bgt $t7, $s1, invalid_substring #branches if amount of characters is more than 4
+		bgt $t7, $s1, invalid_substring_helper #branches if amount of characters is more than 4
 		addi $t3, $t3, 1 #increments the address of the word
 		j loopTwo
 		
+	invalid_substring_helper:
+		addi $t3, $t3, 1
+		lb $t5, 0($t3) #loads one byte of the word
+		beq $t5, $t1, invalid_substring #branches if the byte is equal to a commma
+		j invalid_substring_helper
 		
 	invalid_substring:
 		li $v0, 4

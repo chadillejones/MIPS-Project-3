@@ -171,7 +171,7 @@ convertSubstring:
 		blt $t5, $s1, print_invalid_input #breaks if ascii of character is < 97
 		bgt $t5, $s2, print_invalid_input #breaks if ascii of character is > 121
 		addi $t5, $t5, -87 #makes the ascii for digit align with common letters
-		
+		j convertByteHelper
 	
 	endSubstring:
 		add $v0, $s4, $zero #puts the converted substring in the return variable

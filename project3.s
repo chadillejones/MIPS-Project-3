@@ -138,8 +138,10 @@ convertSubstring:
 	addi $t4, $t4, -55 #makes the ascii digit align with capital letters
 	lb $a0, $t4 #loads byte in a0 to be passed as an argument
 	
-	jal convertByte #subprogram to convert byte to base 35
-	
+	convertByteHelper:
+		jal convertByte #subprogram to convert byte to base 35
+		lw $ra, 12($sp) #get the return register for convertSubstring
+		add $s4, $s4, $v0 #adds the amount for that digit to the total
 			
 	not_a_digit:
 		

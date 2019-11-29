@@ -7,7 +7,7 @@ invalid: .asciiz "NaN" #creating the error message for incorrect input
 subString: .word 0, 0, 0, 0 #initialize a word list
 
 .text #Assembly language instruction
-.globl main
+
 
 main: 
 
@@ -18,6 +18,7 @@ main:
 	li $a1, 1002 #specify the length of the input a person can enter
 	syscall
 	
+	
 	lw $t0, user_input #loads the word in $t0
 	sub $sp, $sp, 12 #moves the pointer for stack
 	sw $t0, 4($sp) #adds the input string to the word
@@ -26,12 +27,14 @@ main:
 	jal processString #jumps to subprogram A
 	
 	
+	
+	
 processString:   #subprogram A to accept all the string and make it substrings
 	
 	sw $ra, 0($sp) #stores the return address for the program
 	li $t1, 44 #loads a comma
 	lw $t2, 4($sp) #loads the user_input
-	la $t3, ($t2) #loads the address of the input string 
+	la $t3, ($a0) #loads the address of the input string 
 	li $t4, 0x0A #loads a newline
 	li $t6, 0 #length of substring
 	
@@ -144,7 +147,7 @@ convertSubstring:
 		li $s2, 121 #highest possible common letter ascii = y since N = 35
 	
 		blt $t5, $t7, print_invalid_input #breaks if ascii of character is < 48
-		bgt $t5, $78, not_a_digit #breaks if ascii of character is > 57
+		bgt $t5, $t8, not_a_digit #breaks if ascii of character is > 57
 		addi $t5, $t5, -48 #makes the ascii digit align with capital letters
 		
 	

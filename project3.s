@@ -26,8 +26,6 @@ main:
 	
 	jal processString #jumps to subprogram A
 	
-	li $v0, 10
-	syscall  #tell the system this is the end of file
 	
 	
 processString:   #subprogram A to accept all the string and make it substrings
@@ -92,6 +90,9 @@ processString:   #subprogram A to accept all the string and make it substrings
 		j loop
 		
 	endProgram:
+	li $v0, 10
+	syscall  #tell the system this is the end of file
+	
 		
 	leading_chars: #checks if it is a leading space/tab
 		beq $t5, $t8, skip_leading_tab_or_space

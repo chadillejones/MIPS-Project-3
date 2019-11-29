@@ -129,16 +129,22 @@ convertSubstring:
 	li $t7, 48 #lowest possible valid character ascii
 	li $t8, 57 #hightest possible non-letter digit ascii
 	li $t9, 65 #lowest possible capital letter ascii
-	li $s0, 89 #highest possible capital letter ascii # =Y since N = 35
+	li $s3, 89 #highest possible capital letter ascii # =Y since N = 35
 	li $s1, 97 #lowest possible common letter ascii 
 	li $s2, 121 #highest possible common letter ascii = y since N = 35
 	
 	blt $t4, $s4, print_invalid_input #breaks if ascii of character is < 48
 	bgt $t4, $s5, not_a_digit #breaks if ascii of character is > 57
+	addi $t4, $t4, -55 #makes the ascii digit align with capital letters
+	lb $a0, $t4 #loads byte in a0 to be passed as an argument
+	
+	jal convertByte #subprogram to convert byte to base 35
+			
+	not_a_digit:
 		
 		
-		
-		
+convertByte:
+
 	
 		
 	

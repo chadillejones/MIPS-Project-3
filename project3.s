@@ -73,6 +73,7 @@ processString:   #subprogram A to accept all the string and make it substrings
 		addi $s0, $s0, 1 #increments the word list
 		bgt $t7, $s1, invalid_substring #branches if amount of characters is more than 4
 		addi $t3, $t3, 1 #increments the address of the word
+		j loopTwo
 		
 		
 	invalid_substring:
@@ -105,11 +106,11 @@ processString:   #subprogram A to accept all the string and make it substrings
 		addi $t3, $t3, 1 #move to the next byte
 		lb $t5, 0($t3)  #gets a character of the string
 		beq $t5, $t1, validSubstring #branches if only trailing tabs are spaces are found before newline
-		bne $t4, $t8, not_a_space #branches if character is not a space
+		bne $t5, $t8, not_a_space #branches if character is not a space
 		j skip_trailing_tab_or_space #returns to check next character for trailing tab or space
 	
 	not_a_space:
-		bne $t4, $t9, invalid_substring #if character after space for trailing is not a tab or space then print invalid
+		bne $t5, $t9, invalid_substring #if character after space for trailing is not a tab or space then print invalid
 		j skip_trailing_tab_or_space #returns to check the next character for trailing tab or space
 	
 	lastSubstring: #checks the final substring		

@@ -153,7 +153,11 @@ convertByte:
 	beq $a2, $t8,two_valid_chars #branch if there are 2 valid characters
 	beq $a2, $t7,one_valid_char #branch if there is one valid character
 	
-	
+	four_valid_chars:
+	li $t9, 42875
+	multu $t9, $a0 #multiplying the character by the base number to a specific power
+	mflo $v0 #moves the answer to a register to be passed back to the function
+	jr $ra
 		
 	
 	

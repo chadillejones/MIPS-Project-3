@@ -119,6 +119,9 @@ processString:   #subprogram A to accept all the string and make it substrings
 		add $a1, $t7, $zero #changes variable $t7 to and argument
 		
 		jal convertSubstring #subprogram to convert to base 35
+		blt $v0, $zero, invalid_substring #prints error message for that substring
+		
+		
 		j nextSubstring
 		
 convertSubstring: 
@@ -150,8 +153,17 @@ convertSubstring:
 		addi $a1, $a1, -1 #decrements the character position
 		beq $a1, $zero, endSubstring
 		j loopConvert
+		
+	print_invalid_input:
 			
 	not_a_digit:
+	
+	endSubstring:
+		add $v0, $s4, $zero #puts the converted substring in the return variable
+		
+	returnToNextSubstring:
+		lw $ra, 12($sp) #loading the return value register
+		jr $ra
 		
 		
 convertByte:
@@ -188,7 +200,7 @@ convertByte:
 	mflo $v0 #moves the answer to a register to be passed back to the function
 	jr $ra
 		
-	
+
 	
 	
 	

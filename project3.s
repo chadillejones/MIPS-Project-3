@@ -121,7 +121,10 @@ processString:   #subprogram A to accept all the string and make it substrings
 		jal convertSubstring #subprogram to convert to base 35
 		blt $v0, $zero, invalid_substring #prints error message for that substring
 		
-		
+		add $t7, $v0, $zero #move the answer to a different variable
+		li $v0, 1
+		move $a0, $t7
+		syscall #prints the result of the decimal equivalent to the base 35 number
 		j nextSubstring
 		
 convertSubstring: 
@@ -155,6 +158,8 @@ convertSubstring:
 		j loopConvert
 		
 	print_invalid_input:
+		addi $v0, $zero, -1 #sets the value of v0 to negative 
+		j returnToNextSubstrin
 			
 	not_a_digit:
 	

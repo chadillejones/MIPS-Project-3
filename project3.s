@@ -80,13 +80,14 @@ processString:   #subprogram A to accept all the string and make it substrings
 		syscall
 	
 	nextSubstring:
+		blt $a3, $zero, endProgram
 		li $a0, ','
 		li $v0, 11 #prints ","
 		syscall	
 		
 		addi $t3, $t3, 1 #moves the address of the user input after the first substring
 		add $t6, $zero, $zero
-		blt $a3, $zero, endProgram
+		
 		j loop
 		
 	endProgram:

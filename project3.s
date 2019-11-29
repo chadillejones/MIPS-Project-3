@@ -148,6 +148,12 @@ convertByte:
 	li $t8, 2
 	li $t9, 3
 	li $s1, 4
+	beq $a2, $s1,four_valid_chars #branch if there are 4 characters
+	beq $a2, $t9,three_valid_chars #branch if there are 3 characters
+	beq $a2, $t8,two_valid_chars #branch if there are 2 valid characters
+	beq $a2, $t7,one_valid_char #branch if there is one valid character
+	
+	
 		
 	
 	

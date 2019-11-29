@@ -139,6 +139,7 @@ convertSubstring:
 	lb $a0, $t4 #loads byte in a0 to be passed as an argument
 	
 	jal convertByte #subprogram to convert byte to base 35
+	
 			
 	not_a_digit:
 		
@@ -155,6 +156,24 @@ convertByte:
 	
 	four_valid_chars:
 	li $t9, 42875
+	multu $t9, $a0 #multiplying the character by the base number to a specific power
+	mflo $v0 #moves the answer to a register to be passed back to the function
+	jr $ra
+	
+	three_valid_chars:
+	li $t9, 1225
+	multu $t9, $a0 #multiplying the character by the base number to a specific power
+	mflo $v0 #moves the answer to a register to be passed back to the function
+	jr $ra
+	
+	two_valid_chars:
+	li $t9, 35
+	multu $t9, $a0 #multiplying the character by the base number to a specific power
+	mflo $v0 #moves the answer to a register to be passed back to the function
+	jr $ra
+	
+	one_valid_char:
+	li $t9, 1
 	multu $t9, $a0 #multiplying the character by the base number to a specific power
 	mflo $v0 #moves the answer to a register to be passed back to the function
 	jr $ra

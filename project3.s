@@ -26,7 +26,8 @@ main:
 	
 	jal processString #jumps to subprogram A
 	
-	
+	li $v0, 10
+	syscall  #tell the system this is the end of file
 	
 	
 processString:   #subprogram A to accept all the string and make it substrings

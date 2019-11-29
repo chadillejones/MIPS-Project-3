@@ -88,8 +88,10 @@ processString:   #subprogram A to accept all the string and make it substrings
 		
 		addi $t3, $t3, 1 #moves the address of the user input after the first substring
 		add $t6, $zero, $zero
+		blt $a3, $zero, endProgram
 		j loop
 		
+	endProgram:
 		
 	leading_chars: #checks if it is a leading space/tab
 		beq $t5, $t8, skip_leading_tab_or_space
@@ -113,8 +115,9 @@ processString:   #subprogram A to accept all the string and make it substrings
 		j skip_trailing_tab_or_space #returns to check the next character for trailing tab or space
 	
 	lastSubstring: #checks the final substring		
-		lw $ra, 0($sp) #loads the return address for processString
-		jr $ra #return to where was called
+		add $a3, $zero, -1
+		j parseSubstring
+		
 		
 	validSubstring:
 		li $a0, 35 #initialized the base number
@@ -129,6 +132,7 @@ processString:   #subprogram A to accept all the string and make it substrings
 		li $v0, 1
 		move $a0, $t7
 		syscall #prints the result of the decimal equivalent to the base 35 number
+		add $s4, $zero, $zero #reinitialize s4
 		j nextSubstring
 		
 convertSubstring: 
@@ -154,6 +158,7 @@ convertSubstring:
 	
 	convertByteHelper:
 		add $a0, $t5, $zero #loads byte in a0 to be passed as an argument
+		
 		jal convertByte #subprogram to convert byte to base 35
 		add $s4, $s4, $v0 #adds the amount for that digit to the total
 		addi $s3, $s3, 1 #increments the address

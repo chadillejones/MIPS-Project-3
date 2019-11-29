@@ -143,12 +143,12 @@ convertSubstring:
 		
 	
 	convertByteHelper:
-		lb $a0, $t4 #loads byte in a0 to be passed as an argument
-		add $a2, $s2, $zero #puts the amount of characters in substring in an argument to pass
+		lb $a0, ($t4) #loads byte in a0 to be passed as an argument
 		jal convertByte #subprogram to convert byte to base 35
 		add $s4, $s4, $v0 #adds the amount for that digit to the total
 		addi $s3, $s3, 1 #increments the address
-		addi 
+		addi $a1, $a1, -1 #decrements the character position
+		
 		j loopConvert
 			
 	not_a_digit:
@@ -159,10 +159,10 @@ convertByte:
 	li $t8, 2
 	li $t9, 3
 	li $s1, 4
-	beq $a2, $s1,four_valid_chars #branch if there are 4 characters
-	beq $a2, $t9,three_valid_chars #branch if there are 3 characters
-	beq $a2, $t8,two_valid_chars #branch if there are 2 valid characters
-	beq $a2, $t7,one_valid_char #branch if there is one valid character
+	beq $a1, $s1,four_valid_chars #branch if there are 4 characters
+	beq $a1, $t9,three_valid_chars #branch if there are 3 characters
+	beq $a1, $t8,two_valid_chars #branch if there are 2 valid characters
+	beq $a1, $t7,one_valid_char #branch if there is one valid character
 	
 	four_valid_chars:
 	li $t9, 42875

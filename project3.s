@@ -148,7 +148,7 @@ convertSubstring:
 		add $s4, $s4, $v0 #adds the amount for that digit to the total
 		addi $s3, $s3, 1 #increments the address
 		addi $a1, $a1, -1 #decrements the character position
-		
+		beq $a1, $zero, endSubstring
 		j loopConvert
 			
 	not_a_digit:

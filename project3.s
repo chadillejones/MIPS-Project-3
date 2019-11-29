@@ -86,7 +86,6 @@ processString:   #subprogram A to accept all the string and make it substrings
 		li $v0, 11 #prints ","
 		syscall	
 		
-		add $t3, $t3, $t6
 		addi $t3, $t3, 1 #moves the address of the user input after the first substring
 		add $t6, $zero, $zero
 		j loop
